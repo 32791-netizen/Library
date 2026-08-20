@@ -1,0 +1,29 @@
+def create_tables():
+conn = connect_db()
+cur = conn.cursor()
+cur.execute("""
+CREATE TABLE IF NOT EXISTS books (
+book_id TEXT PRIMARY KEY,
+title TEXT NOT NULL,
+author TEXT,
+category TEXT,
+status TEXT DEFAULT "available"
+)""")
+conn.commit()
+conn.close()
+
+
+from database import create_tables
+
+from services import add_book, search_books
+def main_menu():
+while True:
+print("\n=== Library System ===")
+print("1. เพิ่มหนังสือ")
+print("2. ค้นหาหนังสือ")
+print("0. ออกจากระบบ")
+choice = input("เลือกเมนู: ")
+if choice == "0":
+break
+create_tables()
+main_menu()
